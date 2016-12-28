@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qingmai.dao.IUserDao">
+	<!-- 
+		在mybatis中，映射文件中的namespace是用于绑定Dao接口的，即面向接口编程。 
+		当你的namespace绑定接口后，你可以不用写接口实现类，mybatis会通过该绑定自动 
+		帮你找到对应要执行的SQL语句。 
+		-->
 	<sql id="Base_Column_List">
 		username, mobile
 	</sql>
+	
+	<!-- 
+	请注意接口中的方法与映射文件中的SQL语句的ID一一对应 。
+	则在代码中可以直接使用IArticeDAO面向接口编程而不需要再编写实现类。
+	 -->
 	<select id="selectUser" parameterType="int" resultType="user">
 		select
 		<include refid="Base_Column_List" />
