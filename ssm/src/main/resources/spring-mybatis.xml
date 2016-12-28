@@ -42,7 +42,16 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:com/qingmai/bean/mybatis-*.xml" />
 	</bean>
-
+	
+	<!-- 
+		<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  		<property name="mapperInterface" value="org.mybatis.spring.sample.mapper.UserMapper" />
+  		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		</bean>
+		org.mybatis.spring.sample.mapper.UserMapper是一个接口，我们创建一个MapperFactoryBean实例，然后注入这个接口和sqlSessionFactory（mybatis中提供的SqlSessionFactory接口，MapperFactoryBean会使用SqlSessionFactory创建SqlSession）这两个属性。
+ 		之后想使用这个UserMapper接口的话，直接通过spring注入这个bean，然后就可以直接使用了，spring内部会创建一个这个接口的动态代理。
+		当发现要使用多个MapperFactoryBean的时候，一个一个定义肯定非常麻烦，于是mybatis-spring提供了MapperScannerConfigurer这个类，它将会查找类路径下的映射器并自动将它们创建成MapperFactoryBean。
+	 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.qingmai.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
@@ -56,8 +65,10 @@
 	<!-- 配置事物的注解方式注入 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
+	<!-- 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 		<constructor-arg index="1" value="BATCH" />
 	</bean>
+	 -->
 </beans>  
